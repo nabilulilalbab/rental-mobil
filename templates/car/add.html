@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tambah Mobil Baru - Rental Mobil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <style>
+      :root {
+        --tblr-font-sans-serif: "Inter Var", -apple-system, BlinkMacSystemFont,
+          San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+      }
+      body {
+        font-feature-settings: "cv03", "cv04", "cv11";
+        font-family: var(--tblr-font-sans-serif);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 dark:bg-gray-900">
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+      <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-md dark:bg-gray-800">
+        <div class="p-6 sm:p-8">
+          <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
+            Tambah Mobil Baru
+          </h1>
+
+          <form
+            action="/mobil/tambah"
+            method="post"
+            enctype="multipart/form-data"
+            class="mt-6 space-y-6"
+          >
+            <div>
+              <label
+                for="name"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Nama Mobil (Contoh: Honda Jazz 2021)</label
+              >
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                required
+              />
+            </div>
+
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              <div>
+                <label
+                  for="capacity"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Kapasitas (Orang)</label
+                >
+                <input
+                  type="number"
+                  id="capacity"
+                  name="capacity"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  for="transmission"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Transmisi</label
+                >
+                <select
+                  id="transmission"
+                  name="transmission"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                >
+                  <option>Manual</option>
+                  <option>Automatic</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label
+                for="price"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Harga Sewa / Hari (Rp)</label
+              >
+              <input
+                type="number"
+                step="1000"
+                id="price"
+                name="price"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                required
+              />
+            </div>
+
+            <div>
+              <label
+                for="description"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Deskripsi</label
+              >
+              <textarea
+                id="description"
+                name="description"
+                rows="4"
+                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+              ></textarea>
+            </div>
+
+            <div>
+              <label
+                for="images"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Gambar Mobil (bisa pilih lebih dari satu)</label
+              >
+              <input
+                type="file"
+                id="images"
+                name="images"
+                multiple
+                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+              />
+            </div>
+
+            <div class="flex items-center justify-end space-x-4">
+              <a
+                href="/mobil"
+                class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+              >
+                Batal
+              </a>
+              <button
+                type="submit"
+                class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Simpan Mobil
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

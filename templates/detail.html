@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{.Car.Name}} - Detail Mobil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100">
+    {{template "navbar.html" .}}
+
+    <main class="container mx-auto p-8">
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        <div class="grid grid-cols-1 md:grid-cols-2">
+          <div>
+            {{if .Car.Images}}
+            <img
+              src="{{(index .Car.Images 0).URL}}"
+              alt="{{.Car.Name}}"
+              class="w-full h-96 object-cover"
+            />
+            <div class="p-4 flex space-x-2 bg-gray-50">
+              {{range .Car.Images}}
+              <img
+                src="{{.URL}}"
+                alt="thumbnail"
+                class="w-20 h-20 object-cover rounded-md border-2 border-gray-200"
+              />
+              {{end}}
+            </div>
+            {{else}}
+            <div
+              class="w-full h-96 bg-gray-200 flex items-center justify-center"
+            >
+              <span class="text-gray-500">No Image Available</span>
+            </div>
+            {{end}}
+          </div>
+
+          <div class="p-8 flex flex-col justify-between">
+            <div>
+              <h1 class="text-4xl font-extrabold text-gray-900 mb-2">
+                {{.Car.Name}}
+              </h1>
+              <p class="text-gray-600 mb-6">{{.Car.Description}}</p>
+
+              <div class="grid grid-cols-2 gap-4 text-gray-700 mb-6">
+                <span><strong>Kapasitas:</strong> {{.Car.Capacity}} Orang</span>
+                <span><strong>Transmisi:</strong> {{.Car.Transmission}}</span>
+                <span
+                  ><strong>Status:</strong>
+                  {{if .Car.IsAvailable}}
+                  <span class="text-green-600 font-semibold">Tersedia</span>
+                  {{else}}
+                  <span class="text-red-600 font-semibold">Disewa</span>
+                  {{end}}
+                </span>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <div class="text-3xl font-bold text-blue-600 mb-4">
+                Rp {{.Car.PricePerDay}}
+                <span class="text-lg font-normal text-gray-500">/ hari</span>
+              </div>
+              {{if .Car.IsAvailable}}
+              <a
+                href="/pesan/{{.Car.ID}}"
+                class="block text-center w-full bg-green-500 text-white font-bold py-3 rounded-lg hover:bg-green-600"
+              >
+                Sewa Sekarang
+              </a>
+              {{else}}
+              <button
+                class="w-full bg-gray-400 text-white font-bold py-3 rounded-lg cursor-not-allowed"
+                disabled
+              >
+                Sedang Disewa
+              </button>
+              {{end}}
+            </div>
+          </div>
+        </div>
+      </div>
+      </div> <div class="mt-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Ulasan & Komentar</h2>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+                <form action="/komentar/buat" method="post">
+                    <input type="hidden" name="car_id" value="{{.Car.ID}}">
+                    <textarea name="content" rows="4" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Tulis komentarmu di sini..." required></textarea>
+                    <button type="submit" class="mt-2 px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700">Kirim Komentar</button>
+                </form>
+            </div>
+
+            <div class="space-y-6">
+                {{range .Car.Comments}}
+                <div class="bg-white p-5 rounded-lg shadow-md flex items-start space-x-4">
+                    <div class="flex-shrink-0 w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
+                        <span class="text-xl font-bold text-gray-600">{{index .User.Name 0}}</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800">{{.User.Name}} <span class="text-sm font-normal text-gray-500">· {{.CreatedAt.Format "2 Jan 2006"}}</span></p>
+                        <p class="text-gray-600 mt-1">{{.Content}}</p>
+                    </div>
+                </div>
+                {{else}}
+                <div class="bg-white p-5 rounded-lg shadow-md text-center">
+                    <p class="text-gray-500">Belum ada komentar. Jadilah yang pertama!</p>
+                </div>
+                {{end}}
+            </div>
+        </div>
+    </main>
+
+    {{template "footer.html" .}}
+  </body>
+</html>

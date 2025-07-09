@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daftar Mobil - Rental Mobil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <style>
+      :root {
+        --tblr-font-sans-serif:
+          "Inter Var", -apple-system, BlinkMacSystemFont, San Francisco,
+          Segoe UI, Roboto, Helvetica Neue, sans-serif;
+      }
+      body {
+        font-feature-settings: "cv03", "cv04", "cv11";
+        font-family: var(--tblr-font-sans-serif);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 dark:bg-gray-900">
+    {{template "navbar.html" .}}
+    <main class="container mx-auto p-8">
+      <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="sm:flex sm:items-center sm:justify-between mb-6">
+          <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
+            Daftar Mobil Kami
+          </h1>
+          <div class="mt-4 sm:mt-0 flex space-x-2">
+            <a
+              href="/mobil/export/excel"
+              class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-green-600 border border-transparent rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+            >
+              <i class="fas fa-file-excel mr-2"></i>
+              Export ke Excel
+            </a>
+            <a
+              href="/mobil/tambah"
+              class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              <i class="fas fa-plus mr-2"></i>
+              Tambah Mobil
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="overflow-x-auto bg-white rounded-lg shadow dark:bg-gray-800"
+        >
+          <table
+            class="min-w-full divide-y divide-gray-200 dark:divide-gray-700"
+          >
+            <thead class="bg-gray-50 dark:bg-gray-700">
+              <tr>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300"
+                >
+                  Gambar
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300"
+                >
+                  Nama Mobil
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300"
+                >
+                  Kapasitas
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300"
+                >
+                  Transmisi
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300"
+                >
+                  Harga / Hari
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300"
+                >
+                  Status
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300"
+                >
+                  Aksi
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700"
+            >
+              {{range .DataMobil}}
+              <tr class="hover:bg-gray-50 dark:hover:bg-gray-600">
+                <td class="px-6 py-4 whitespace-nowrap">
+                  {{if .Images}}
+                  <img
+                    src="{{(index .Images 0).URL}}"
+                    alt="{{.Name}}"
+                    class="h-12 w-20 object-cover rounded-md"
+                  />
+                  {{else}}
+                  <div
+                    class="h-12 w-20 bg-gray-200 dark:bg-gray-700 rounded-md flex items-center justify-center"
+                  >
+                    <span class="text-xs text-gray-500 dark:text-gray-400"
+                      >No Image</span
+                    >
+                  </div>
+                  {{end}}
+                </td>
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  {{.Name}}
+                </td>
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500 dark:text-gray-300"
+                >
+                  {{.Capacity}} orang
+                </td>
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500 dark:text-gray-300"
+                >
+                  {{.Transmission}}
+                </td>
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500 dark:text-gray-300"
+                >
+                  Rp {{.PricePerDay}}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-center">
+                  {{if .IsAvailable}}
+                  <span
+                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
+                    >Tersedia</span
+                  >
+                  {{else}}
+                  <span
+                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
+                    >Disewa</span
+                  >
+                  {{end}}
+                </td>
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm text-center font-medium"
+                >
+                  <a
+                    href="/mobil/edit/{{.ID}}"
+                    class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300"
+                    >Edit</a
+                  >
+                  <form
+                    action="/mobil/delete/{{.ID}}"
+                    method="post"
+                    class="inline"
+                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus mobil ini?');"
+                  >
+                    <button
+                      type="submit"
+                      class="ml-4 text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
+                    >
+                      Hapus
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              {{end}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    {{template "footer.html" .}}
+  </body>
+</html>

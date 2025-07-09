@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Booking {{.Car.Name}}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100">
+    {{template "navbar.html" .}}
+
+    <main class="container mx-auto p-8">
+      <h1 class="text-3xl font-bold mb-6">Formulir Pemesanan</h1>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="md:col-span-2">
+          <form
+            action="/pesanan/buat"
+            method="post"
+            class="bg-white p-8 rounded-lg shadow-md"
+          >
+            <input type="hidden" name="car_id" value="{{.Car.ID}}" />
+            <input
+              type="hidden"
+              id="price_per_day"
+              value="{{.Car.PricePerDay}}"
+            />
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label
+                  for="pickup_date"
+                  class="block text-gray-700 text-sm font-bold mb-2"
+                  >Tanggal Ambil</label
+                >
+                <input
+                  type="date"
+                  id="pickup_date"
+                  name="pickup_date"
+                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  for="return_date"
+                  class="block text-gray-700 text-sm font-bold mb-2"
+                  >Tanggal Kembali</label
+                >
+                <input
+                  type="date"
+                  id="return_date"
+                  name="return_date"
+                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
+                  required
+                />
+              </div>
+            </div>
+            <div class="mb-6">
+              <label
+                for="pickup_location"
+                class="block text-gray-700 text-sm font-bold mb-2"
+                >Lokasi Pengambilan</label
+              >
+              <input
+                type="text"
+                id="pickup_location"
+                name="pickup_location"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
+                placeholder="e.g., Bandara Ahmad Yani"
+                required
+              />
+            </div>
+            <div class="mb-6">
+              <label
+                for="return_location"
+                class="block text-gray-700 text-sm font-bold mb-2"
+                >Lokasi Pengembalian</label
+              >
+              <input
+                type="text"
+                id="return_location"
+                name="return_location"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
+                placeholder="e.g., Stasiun Tawang"
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              class="w-full bg-green-500 text-white font-bold py-3 rounded-lg hover:bg-green-600"
+            >
+              Konfirmasi Pesanan
+            </button>
+          </form>
+        </div>
+
+        <div class="bg-white p-8 rounded-lg shadow-md">
+          <h2 class="text-2xl font-bold mb-4 border-b pb-4">Ringkasan</h2>
+          {{if .Car.Images}}
+          <img
+            src="{{(index .Car.Images 0).URL}}"
+            alt="{{.Car.Name}}"
+            class="rounded-lg mb-4 w-full"
+          />
+          {{end}}
+          <h3 class="text-xl font-semibold">{{.Car.Name}}</h3>
+          <p class="text-gray-600">{{.Car.Transmission}}</p>
+          <div class="mt-6 text-lg">
+            <div class="flex justify-between">
+              <span>Harga per Hari</span>
+              <span>Rp {{.Car.PricePerDay}}</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Lama Sewa</span>
+              <span id="duration">0 Hari</span>
+            </div>
+            <div
+              class="flex justify-between font-bold text-xl border-t mt-2 pt-2"
+            >
+              <span>Total Harga</span>
+              <span id="total_price">Rp 0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    {{template "footer.html" .}}
+
+    <script>
+      const pickupDateEl = document.getElementById("pickup_date");
+      const returnDateEl = document.getElementById("return_date");
+      const pricePerDay = parseFloat(
+        document.getElementById("price_per_day").value,
+      );
+
+      function calculateTotal() {
+        const pickupDate = new Date(pickupDateEl.value);
+        const returnDate = new Date(returnDateEl.value);
+
+        if (
+          pickupDateEl.value &&
+          returnDateEl.value &&
+          returnDate > pickupDate
+        ) {
+          const timeDiff = returnDate.getTime() - pickupDate.getTime();
+          const dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+          if (dayDiff > 0) {
+            document.getElementById("duration").innerText = `${dayDiff} Hari`;
+            document.getElementById("total_price").innerText =
+              `Rp ${dayDiff * pricePerDay}`;
+          } else {
+            document.getElementById("duration").innerText = `0 Hari`;
+            document.getElementById("total_price").innerText = `Rp 0`;
+          }
+        }
+      }
+
+      pickupDateEl.addEventListener("change", calculateTotal);
+      returnDateEl.addEventListener("change", calculateTotal);
+    </script>
+  </body>
+</html>

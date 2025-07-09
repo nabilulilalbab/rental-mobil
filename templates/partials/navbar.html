@@ -1,0 +1,45 @@
+{{/* File: templates/partials/navbar.html */}}
+<nav class="bg-white shadow-md">
+  <div class="container mx-auto px-6 py-3">
+    <div class="flex justify-between items-center">
+      <div>
+        <a class="text-2xl font-bold text-gray-800" href="/">RentalMobil</a>
+      </div>
+
+      <div class="flex items-center space-x-4">
+        {{if .IsLoggedIn}}
+        <a href="/" class="text-gray-600 hover:text-blue-500">Home</a>
+
+        {{if .IsAdmin}}
+        <a href="/mobil" class="text-gray-600 hover:text-blue-500"
+          >Dashboard Admin</a
+        >
+        <a href="/admin/pesanan" class="text-gray-600 hover:text-blue-500"
+          >Manajemen Pesanan</a
+        >
+        {{else}}
+        <a href="/pesanan-saya" class="text-gray-600 hover:text-blue-500"
+          >Pesanan Saya</a
+        >
+        {{end}}
+
+        <span class="text-gray-700">|</span>
+        <span class="font-semibold text-gray-700">Halo, {{.UserName}}</span>
+        <a
+          href="/logout"
+          class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 text-sm"
+          >Logout</a
+        >
+
+        {{else}}
+        <a href="/login" class="text-gray-600 hover:text-blue-500">Login</a>
+        <a
+          href="/register"
+          class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 text-sm"
+          >Register</a
+        >
+        {{end}}
+      </div>
+    </div>
+  </div>
+</nav>
