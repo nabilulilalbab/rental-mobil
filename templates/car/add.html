@@ -5,73 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tambah Mobil Baru - Rental Mobil</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-    <style>
-      :root {
-        --tblr-font-sans-serif: "Inter Var", -apple-system, BlinkMacSystemFont,
-          San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
-      }
-      body {
-        font-feature-settings: "cv03", "cv04", "cv11";
-        font-family: var(--tblr-font-sans-serif);
-      }
-    </style>
   </head>
-  <body class="bg-gray-100 dark:bg-gray-900">
-    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
-      <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-md dark:bg-gray-800">
-        <div class="p-6 sm:p-8">
-          <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
-            Tambah Mobil Baru
-          </h1>
+  <body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 flex flex-col min-h-screen pt-16">
+    {{template "navbar.html" .}}
 
-          <form
-            action="/mobil/tambah"
-            method="post"
-            enctype="multipart/form-data"
-            class="mt-6 space-y-6"
-          >
+    <main class="flex-grow container mx-auto p-4 sm:px-6 lg:px-8 flex justify-center items-center">
+      <div class="w-full max-w-2xl bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700">
+        <div class="p-6 sm:p-8">
+          <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6">Tambah Mobil Baru</h1>
+
+          <form action="/mobil/tambah" method="post" enctype="multipart/form-data" class="space-y-6">
             <div>
-              <label
-                for="name"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Nama Mobil (Contoh: Honda Jazz 2021)</label
-              >
-              <input
-                type="text"
-                id="name"
-                name="name"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-                required
-              />
+              <label for="name" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Nama Mobil</label>
+              <input type="text" id="name" name="name" placeholder="Contoh: Honda Jazz 2021" class="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5" required />
             </div>
 
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div>
-                <label
-                  for="capacity"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >Kapasitas (Orang)</label
-                >
-                <input
-                  type="number"
-                  id="capacity"
-                  name="capacity"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-                  required
-                />
+                <label for="capacity" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Kapasitas (Orang)</label>
+                <input type="number" id="capacity" name="capacity" class="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5" required />
               </div>
               <div>
-                <label
-                  for="transmission"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >Transmisi</label
-                >
-                <select
-                  id="transmission"
-                  name="transmission"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-                >
+                <label for="transmission" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Transmisi</label>
+                <select id="transmission" name="transmission" class="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5">
                   <option>Manual</option>
                   <option>Automatic</option>
                 </select>
@@ -79,67 +35,29 @@
             </div>
 
             <div>
-              <label
-                for="price"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Harga Sewa / Hari (Rp)</label
-              >
-              <input
-                type="number"
-                step="1000"
-                id="price"
-                name="price"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-                required
-              />
+              <label for="price" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Harga Sewa / Hari (Rp)</label>
+              <input type="number" step="1000" id="price" name="price" class="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5" required />
             </div>
 
             <div>
-              <label
-                for="description"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Deskripsi</label
-              >
-              <textarea
-                id="description"
-                name="description"
-                rows="4"
-                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-              ></textarea>
+              <label for="description" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Deskripsi</label>
+              <textarea id="description" name="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-100 dark:bg-gray-700 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-cyan-500 focus:border-cyan-500"></textarea>
             </div>
 
             <div>
-              <label
-                for="images"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Gambar Mobil (bisa pilih lebih dari satu)</label
-              >
-              <input
-                type="file"
-                id="images"
-                name="images"
-                multiple
-                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-              />
+              <label for="images" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Gambar Mobil</label>
+              <input type="file" id="images" name="images" multiple class="block w-full text-sm text-gray-900 dark:text-gray-400 border border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer bg-gray-100 dark:bg-gray-700 focus:outline-none placeholder-gray-400" />
+              <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Bisa pilih lebih dari satu gambar.</p>
             </div>
 
-            <div class="flex items-center justify-end space-x-4">
-              <a
-                href="/mobil"
-                class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-              >
-                Batal
-              </a>
-              <button
-                type="submit"
-                class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Simpan Mobil
-              </button>
+            <div class="flex flex-col sm:flex-row items-center justify-end space-y-2 sm:space-y-0 sm:space-x-4 pt-4">
+              <a href="/mobil" class="w-full sm:w-auto px-5 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg transition-colors text-center">Batal</a>
+              <button type="submit" class="w-full sm:w-auto px-5 py-2.5 text-sm font-medium text-white bg-cyan-500 dark:bg-cyan-600 rounded-lg hover:bg-cyan-600 dark:hover:bg-cyan-700 transition-colors">Simpan Mobil</button>
             </div>
           </form>
         </div>
       </div>
-    </div>
+    </main>
+    {{template "footer.html" .}}
   </body>
 </html>
