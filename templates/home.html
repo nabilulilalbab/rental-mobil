@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Selamat Datang - Rental Mobil Mewah</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/static/css/output.css" rel="stylesheet" />
     <style>
       @keyframes fadeIn {
         from { opacity: 0; transform: translateY(-20px); }
@@ -13,11 +13,11 @@
       .fade-in { animation: fadeIn 0.8s ease-out forwards; }
     </style>
   </head>
-  <body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 pt-16">
+  <body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 pt-16 min-h-screen flex flex-col">
     
     {{template "navbar.html" .}} 
 
-    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
       
       <!-- Hero Section -->
       <div class="text-center py-12 md:py-20 fade-in">
@@ -94,5 +94,7 @@
     </main>
 
     {{template "footer.html" .}}
+
+    <script src="/static/js/theme.js"></script>
   </body>
 </html>

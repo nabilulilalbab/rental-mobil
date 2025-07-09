@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Manajemen Pesanan - Admin</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+   <link href="/static/css/output.css" rel="stylesheet" />
 </head>
-<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 pt-16">
+<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 pt-16 min-h-screen flex flex-col">
 
     {{template "navbar.html" .}}
 
@@ -60,5 +60,7 @@
     </main>
 
     {{template "footer.html" .}}
+
+    <script src="/static/js/theme.js"></script>
 </body>
 </html>
